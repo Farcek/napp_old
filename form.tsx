@@ -25,7 +25,7 @@ export class NappForm extends React.Component<INappFormProps, {}> {
     }
 
     render() {
-        return <form action={this.props.action || ''} method={this.props.method || 'post'}  >
+        return <form action={this.props.action || ''} method={this.props.method || 'post'} encType="application/x-www-form-urlencoded" >
             {this.showError()}
             {this.props.children}
             <div className="field is-grouped is-grouped-centered">

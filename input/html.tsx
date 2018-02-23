@@ -1,5 +1,7 @@
 import * as React from "react";
 import { INappInput, INappInputIcon } from "./interface";
+
+const uuid = require('uuid/v4');
 export interface PNappInputHtmlProps extends INappInput {
     Value: string
 }
@@ -45,13 +47,14 @@ export class NappInputHtml extends React.Component<PNappInputHtmlProps, {}> {
 
     render() {
 
-
+        let uid = uuid();
         return <div className="field">
             <label className="label">{this.props.Label}</label>
-            <div className={this.controlClass} napp-input-html="">
-                <textarea className="is-hidden" name={this.props.Name} defaultValue={this.props.Value}></textarea>
-                <div className="napp-input-html-editor">
-                </div>
+            <div className={this.controlClass} napp-input-html={uid}>
+                <textarea name={this.props.Name} defaultValue={this.props.Value}></textarea>
+
+                {/* <div className="napp-input-html-editor">
+                </div> */}
                 {this.isError
                     ? <span className="icon is-small is-right has-text-danger" ><i className="fa fa-exclamation-triangle"></i></span>
                     : null
