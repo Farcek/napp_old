@@ -1,27 +1,24 @@
 import * as React from "react";
+import * as moment from "moment";
 import { INappInput, INappInputIcon } from "./interface";
-
-const uuid = require('uuid/v4');
-export interface PNappInputHtmlProps extends INappInput {
-    Value: string
-
-    ckConfig: any
+export interface INappInputDateProps extends INappInput, INappInputIcon {
+    Value: Date | null
 }
 
-export class NappInputHtml extends React.Component<PNappInputHtmlProps, {}> {
+export class NappInputDate extends React.Component<INappInputDateProps, {}> {
 
     get controlClass() {
         //className="control has-icons-left has-icons-right"
-        return `control ${(this.isError || this.isSuccess) ? 'has-icons-right' : ''}`
+        return `control ${this.props.Icon ? 'has-icons-left' : ''} ${(this.isError || this.isSuccess) ? 'has-icons-right' : ''}`
     }
 
     get inputClass() {
         if (this.isError) {
-            return "textarea is-danger"
+            return "input is-danger"
         } else if (this.isSuccess) {
-            return "textarea is-success"
+            return "input is-success"
         }
-        return "textarea"
+        return "input"
     }
 
     get isError() {
@@ -48,14 +45,17 @@ export class NappInputHtml extends React.Component<PNappInputHtmlProps, {}> {
     }
 
     render() {
+        let icon = this.props.Icon || false;
+        let val:string = this.props.Value ? moment(this.props.Value).format('YYYY-MM-DDTHH:mm') : ''; 
 
         return <div className="field">
             <label className="label">{this.props.Label}</label>
-            <div className={this.controlClass} napp-input-html={JSON.stringify(this.props.ckConfig || {})}>
-                <textarea name={this.props.Name} defaultValue={this.props.Value}></textarea>
-
-                {/* <div className="napp-input-html-editor">
-                </div> */}
+            <div className={this.controlClass}>
+                <input className={this.inputClass} type="datetime-local" name={this.props.Name} placeholder={this.props.Placeholder} defaultValue={val } />
+                {this.props.Icon
+                    ? <span className="icon is-small is-left"><i className={`fa fa-${this.props.Icon}`}></i></span>
+                    : null
+                }
                 {this.isError
                     ? <span className="icon is-small is-right has-text-danger" ><i className="fa fa-exclamation-triangle"></i></span>
                     : null
