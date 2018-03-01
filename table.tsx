@@ -11,12 +11,19 @@ export interface PNappTableColumn<T> {
 
     render?: (row: T, i: number, array: T[]) => React.ReactNode
 }
+
+export interface PNappTableAction {
+    label: string
+    icon?: string
+    url?: string
+    type?: string
+}
 export interface PNappTable<T> {
-
-
     items: T[]
 
     paging?: PNappPaginationProps
+
+    actions?: PNappTableAction[]
 
     columns: PNappTableColumn<T>[]
 
@@ -28,46 +35,73 @@ export class NappTable<T> extends React.Component<PNappTable<T>, {}> {
         let columns = this.props.columns || [];
         let paging = this.props.paging;
         let items = this.props.items;
-        return <table className="table is-bordered is-fullwidth">
-            <thead>
-                {columns.map((it, i) => {
-                    return <th key={`h${i}`}>
-                        {it.title || it.key}
-                    </th>
-                })}
-            </thead>
-            <tbody>
-                {items.map((row, i, arr) => {
-                    return <tr key={`r${i}`}>
-                        {columns.map((col, j) => {
-                            let tdClass = `${col.align == 'center' ? 'has-text-centered' : ''} ${col.align == 'right' ? 'has-text-right' : ''}`;
-                            return <td key={`c${j}`} className={tdClass}>
-                                {col.render ? col.render(row, i, arr) : (row as any)[col.key || '']}
-                            </td>
-                        })}
-                    </tr>
-                })}
-                {items.length == 0
-                    ? <tr><td colSpan={columns.length}>
-                        Мэдээлэл алга байна
-                    </td></tr>
+        let actions = this.props.actions;
+        return <div>
+            <div className="level">
+                <div className="level-left">
+
+                </div>
+                {actions && actions.length
+                    ? <div className="level-right">
+                        <div className="level-item">
+                            <div className="buttons is-right">
+                                {actions.map((it, i) => {
+                                    return <a key={i} href={it.url || '#'}
+                                        className={`button ${it.type ? 'is-' + it.type : 'is-success'}`}>
+                                        {it.icon
+                                            ? <span className="icon"><i className={`fa fa-${it.icon}`} /> </span>
+                                            : null
+                                        }
+                                        <span>{it.label}</span>
+                                    </a>
+                                })}
+                            </div>
+                        </div>
+                    </div>
                     : null
                 }
-            </tbody>
-            <tfoot>
-                {paging
-                    ? <tr><td colSpan={columns.length}>
-                        <NappPagination
-                            total={paging.total}
-                            limit={paging.limit}
-                            page={paging.page}
-                            uri={paging.uri}
-                        />
+            </div>
+            <table className="table is-bordered is-fullwidth">
+                <thead>
+                    {columns.map((it, i) => {
+                        return <th key={`h${i}`}>
+                            {it.title || it.key}
+                        </th>
+                    })}
+                </thead>
+                <tbody>
+                    {items.map((row, i, arr) => {
+                        return <tr key={`r${i}`}>
+                            {columns.map((col, j) => {
+                                let tdClass = `${col.align == 'center' ? 'has-text-centered' : ''} ${col.align == 'right' ? 'has-text-right' : ''}`;
+                                return <td key={`c${j}`} className={tdClass}>
+                                    {col.render ? col.render(row, i, arr) : (row as any)[col.key || '']}
+                                </td>
+                            })}
+                        </tr>
+                    })}
+                    {items.length == 0
+                        ? <tr><td colSpan={columns.length}>
+                            Мэдээлэл алга байна
                     </td></tr>
-                    : null
-                }
-            </tfoot>
-        </table>
+                        : null
+                    }
+                </tbody>
+                <tfoot>
+                    {paging
+                        ? <tr><td colSpan={columns.length}>
+                            <NappPagination
+                                total={paging.total}
+                                limit={paging.limit}
+                                page={paging.page}
+                                uri={paging.uri}
+                            />
+                        </td></tr>
+                        : null
+                    }
+                </tfoot>
+            </table>
+        </div>
     }
 }
 
