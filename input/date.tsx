@@ -46,10 +46,10 @@ export class NappInputDate extends React.Component<INappInputDateProps, {}> {
 
     render() {
         let icon = this.props.Icon || false;
-        let val:string = this.props.Value ? moment(this.props.Value).format('YYYY-MM-DDTHH:mm') : ''; 
+        let val:string = this.props.Value ? moment(this.props.Value).utc().format('YYYY-MM-DDTHH:mm') : ''; 
 
         return <div className="field">
-            <label className="label">{this.props.Label}</label>
+            <label className="label">{this.props.Label} </label>
             <div className={this.controlClass}>
                 <input className={this.inputClass} type="datetime-local" name={this.props.Name} placeholder={this.props.Placeholder} defaultValue={val } />
                 {this.props.Icon
