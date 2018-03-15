@@ -8,7 +8,7 @@ export interface PNappTableColumn<T> {
     title?: string
 
     align?: 'center' | 'right'
-
+    size?: string
     render?: (row: T, i: number, array: T[]) => React.ReactNode
 }
 
@@ -64,7 +64,7 @@ export class NappTable<T> extends React.Component<PNappTable<T>, {}> {
             <table className="table is-bordered is-fullwidth">
                 <thead>
                     {columns.map((it, i) => {
-                        return <th key={`h${i}`}>
+                        return <th key={`h${i}`} style={it.size ? { width: it.size } : {}}>
                             {it.title || it.key}
                         </th>
                     })}
