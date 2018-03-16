@@ -8,6 +8,7 @@ export interface INappFormProps {
     method?: string
     error?: IFormError
 
+    
     cancelAction?: string
 }
 
@@ -42,8 +43,6 @@ export class NappForm extends React.Component<INappFormProps, {}> {
                     </p>
                     : null
                 }
-
-
             </div>
         </form>;
     }

@@ -3,7 +3,7 @@ export interface INappInput {
     Name: string
     Label: string
 
-    Value: any
+    Value?: any
 
     Placeholder?: string
 

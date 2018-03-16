@@ -1,7 +1,7 @@
 import * as React from "react";
 import { INappInput, INappInputIcon } from "./interface";
 export interface INappInputTextProps extends INappInput, INappInputIcon {
-    Value: string
+    Value?: string
 }
 
 export class NappInputText extends React.Component<INappInputTextProps, {}> {
@@ -45,11 +45,12 @@ export class NappInputText extends React.Component<INappInputTextProps, {}> {
 
     render() {
         let icon = this.props.Icon || false;
+        let { Value } = this.props;
 
         return <div className="field">
             <label className="label">{this.props.Label}</label>
-            <div className={this.controlClass}>                
-                <textarea className={this.inputClass} name={this.props.Name} placeholder={this.props.Placeholder} defaultValue={this.props.Value}></textarea>
+            <div className={this.controlClass}>
+                <textarea className={this.inputClass} name={this.props.Name} placeholder={this.props.Placeholder} defaultValue={Value || ''}></textarea>
                 {this.props.Icon
                     ? <span className="icon is-small is-left"><i className={`fa fa-${this.props.Icon}`}></i></span>
                     : null
