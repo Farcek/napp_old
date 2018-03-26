@@ -1,4 +1,5 @@
 export * from "./interface"
+export * from "./boolean"
 export * from "./date"
 export * from "./html"
 export * from "./string"

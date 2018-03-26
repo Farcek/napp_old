@@ -1,7 +1,7 @@
 import * as React from "react";
 import { INappInput, INappInputIcon } from "./interface";
 export interface INappInputNumberProps extends INappInput, INappInputIcon {
-    Value: number
+    Value?: number
 }
 
 export class NappInputNumber extends React.Component<INappInputNumberProps, {}> {
@@ -49,7 +49,7 @@ export class NappInputNumber extends React.Component<INappInputNumberProps, {}> 
         return <div className="field">
             <label className="label">{this.props.Label}</label>
             <div className={this.controlClass}>
-                <input className={this.inputClass} type="number" name={this.props.Name} placeholder={this.props.Placeholder} defaultValue={`${this.props.Value}`} />
+                <input className={this.inputClass} type="number" name={this.props.Name} placeholder={this.props.Placeholder} defaultValue={`${this.props.Value || ''}`} />
                 {this.props.Icon
                     ? <span className="icon is-small is-left"><i className={`fa fa-${this.props.Icon}`}></i></span>
                     : null
