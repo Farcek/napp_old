@@ -52,8 +52,8 @@ export class NappInputHtml extends React.Component<PNappInputHtmlProps, {}> {
         return <div className="field">
             <label className="label">{this.props.Label}</label>
             <div className={this.controlClass} napp-input-html={JSON.stringify(this.props.ckConfig || {})}>
-                <textarea name={this.props.Name} defaultValue={this.props.Value}></textarea>
-
+                <textarea hidden={true} name={this.props.Name} defaultValue={this.props.Value}></textarea>
+                <div className="textarea content" style={{ height: "auto", maxHeight: "none" }} app-component="html-editor" contentEditable={true} dangerouslySetInnerHTML={{ __html: this.props.Value }}></div>
                 {/* <div className="napp-input-html-editor">
                 </div> */}
                 {this.isError
