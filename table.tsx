@@ -13,19 +13,20 @@ export interface PNappTableColumn<T> {
 }
 
 export interface PNappTableAction {
-    label: string
-    icon?: string
-    url?: string
-    type?: string
+    label: string;
+    icon?: string;
+    url?: string;
+    type?: string;
 }
 export interface PNappTable<T> {
-    items: T[]
+    title?: string;
+    items: T[];
 
-    paging?: PNappPaginationProps
+    paging?: PNappPaginationProps;
 
-    actions?: PNappTableAction[]
+    actions?: PNappTableAction[];
 
-    columns: PNappTableColumn<T>[]
+    columns: PNappTableColumn<T>[];
 
 }
 
@@ -36,10 +37,14 @@ export class NappTable<T> extends React.Component<PNappTable<T>, {}> {
         let paging = this.props.paging;
         let items = this.props.items;
         let actions = this.props.actions;
+        let title = this.props.title;
         return <div>
             <div className="level">
                 <div className="level-left">
-
+                    {title
+                        ? <div className="level-item">{title}</div>
+                        : null
+                    }
                 </div>
                 {actions && actions.length
                     ? <div className="level-right">
